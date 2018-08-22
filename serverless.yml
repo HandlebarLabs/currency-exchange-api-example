@@ -55,8 +55,18 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  info:
+    handler: exchange.info
+    events:
+      - http:
+         path: /
+         method: get
+  latest:
+    handler: exchange.latest
+    events:
+      - http:
+         path: /latest
+         method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
