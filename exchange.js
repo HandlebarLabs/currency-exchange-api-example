@@ -17,7 +17,7 @@ module.exports.latest = (event, context, callback) => {
   const base = ((event.queryStringParameters && event.queryStringParameters.base) || 'EUR').toUpperCase();
   const rates = data.rates[base] || {};
 
-  const hasRates = Object.keys(rates).length === 0;
+  const hasRates = Object.keys(rates).length > 0;
 
   const response = {
     statusCode: hasRates ? 404 : 200,
@@ -26,7 +26,7 @@ module.exports.latest = (event, context, callback) => {
       base,
       rates,
       date: new Date(),
-      error: !hasRates && 'Invalid base',
+      error: hasRates ? null : 'Invalid base',
     }),
   };
 
